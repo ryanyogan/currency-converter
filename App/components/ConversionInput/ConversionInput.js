@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  ProgressViewIOSComponent,
   StyleSheet,
   Text,
   TextInput,
@@ -17,7 +16,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
   },
+  containerDisabled: {
+    backgroundColor: COLORS.offWhite,
+  },
   button: {
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    backgroundColor: COLORS.white,
     padding: 15,
     borderRightColor: COLORS.border,
     borderRightWidth: 1,
@@ -35,8 +40,14 @@ const styles = StyleSheet.create({
 });
 
 export const ConversionInput = ({ text, onButtonPress, ...props }) => {
+  const containerStyles = [styles.container];
+
+  if (props.editable === false) {
+    containerStyles.push(styles.containerDisabled);
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={containerStyles}>
       <TouchableOpacity onPress={onButtonPress} style={styles.button}>
         <Text style={styles.buttonText}>{text}</Text>
       </TouchableOpacity>
