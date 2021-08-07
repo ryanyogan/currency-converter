@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { COLORS } from "../../constants/colors";
-import { Button, ConversionInput } from "../../components";
+import { Button, ConversionInput, KeyboardSpacer } from "../../components";
 
 const screen = Dimensions.get("window");
 
@@ -59,9 +59,11 @@ export const Home = () => {
   const conversionRate = 0.8345;
   const date = new Date();
 
+  const [scrollEnabled, setScrollEnabled] = useState(false);
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView scrollEnabled={scrollEnabled}>
         <StatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
         <View style={styles.content}>
           <View style={styles.logoContainer}>
@@ -102,7 +104,11 @@ export const Home = () => {
 
           <Button text="Reverse Currencies" onPress={() => alert("todo")} />
 
-          <View style={{ height: screen.height }} />
+          <KeyboardSpacer
+            onToggle={(keyboardIsVisible) =>
+              setScrollEnabled(keyboardIsVisible)
+            }
+          />
         </View>
       </ScrollView>
     </View>
